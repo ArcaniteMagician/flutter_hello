@@ -32,11 +32,13 @@ class TutorialHome extends StatelessWidget {
       ),
       body: Center(
         child: Column(
-          children: <Widget>[Text('Hello World'), MyButton()],
+          children: <Widget>[Text('Hello World'), MyButton(), counter],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: null,
+        onPressed: () {
+          counter.add();
+        },
         child: Icon(Icons.add
             // 这个child难道默认就是个IconButton？
 //        IconButton(
@@ -48,6 +50,8 @@ class TutorialHome extends StatelessWidget {
     );
   }
 }
+
+Counter counter = Counter();
 
 class MyScaffold extends StatelessWidget {
   @override

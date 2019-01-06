@@ -47,3 +47,35 @@ Container getTitleContainer(Widget child) {
       decoration: BoxDecoration(color: Colors.blue[200]),
       child: child);
 }
+
+// Counter
+class Counter extends StatefulWidget {
+  _CounterState state;
+
+  @override
+  _CounterState createState() {
+    state = _CounterState();
+    return state;
+  }
+
+  void add() {
+    state.increment();
+  }
+}
+
+class _CounterState extends State<Counter> {
+  int _counter = 0;
+
+  void increment() {
+    setState(() {
+      _counter++;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Text('Counter: $_counter'),
+    );
+  }
+}
