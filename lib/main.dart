@@ -31,7 +31,9 @@ class TutorialHome extends StatelessWidget {
         ],
       ),
       body: Center(
-        child: Text('Hello World'),
+        child: Column(
+          children: <Widget>[Text('Hello World'), MyButton()],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: null,
@@ -63,6 +65,33 @@ class MyScaffold extends StatelessWidget {
             ),
           )
         ],
+      ),
+    );
+  }
+}
+
+class MyButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTapDown: (details) {
+        print('MyButton Tap Down, and x = ${details.globalPosition.dx}');
+      },
+      onTap: () {
+        print('MyButton Tap!');
+      },
+      onDoubleTap: () {
+        print('MyButton Double Tap!');
+      },
+      child: Container(
+        height: 36.0,
+        padding: const EdgeInsets.all(5.0),
+        margin: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 15.0),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(5.0), color: Colors.blue[200]),
+        child: Center(
+          child: Text('Engage'),
+        ),
       ),
     );
   }
