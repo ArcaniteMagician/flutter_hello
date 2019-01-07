@@ -50,32 +50,48 @@ Container getTitleContainer(Widget child) {
 
 // Counter
 class Counter extends StatefulWidget {
-  _CounterState state;
+  final CountNotifier countNotifier;
+
+  Counter({Key countKey, this.countNotifier}) : super(key: countKey);
 
   @override
-  _CounterState createState() {
-    state = _CounterState();
-    return state;
-  }
-
-  void add() {
-    state.increment();
-  }
+  CounterState createState() => CounterState();
 }
 
-class _CounterState extends State<Counter> {
+class CounterState extends State<Counter> {
   int _counter = 0;
 
   void increment() {
+    print('increment');
     setState(() {
       _counter++;
     });
   }
 
   @override
+  void initState() {
+    super.initState();
+    // TODO-走不到这个监听，重新实验时，记得把increment()方法中的setState注释掉
+    widget.countNotifier.addListener(() {
+      print('countNotifier--');
+      setState(() {
+        print('countNotifier--');
+      });
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
-      child: Text('Counter: $_counter'),
-    );
+        child: Column(
+      children: <Widget>[
+        Text('Key Counter: $_counter'),
+        Text('Notifier Counter: ${widget.countNotifier.value}'),
+      ],
+    ));
   }
+}
+
+class CountNotifier extends ValueNotifier<int> {
+  CountNotifier(int value) : super(value);
 }

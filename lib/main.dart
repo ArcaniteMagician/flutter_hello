@@ -5,12 +5,17 @@ void main() {
   runApp(MaterialApp(title: "Hello Flutter", home: TutorialHome()
 //    Center(
 //      child: Text(
-//        'This is my truely Hello World!',
+//        'This is my truly Hello World!',
 //        textDirection: TextDirection.rtl,// 不知道这个不同参数的区别
 //      ),
 //    ),
       ));
 }
+
+// stful组件之间的通信方式一：通过使用GlobalKey构造组件，另一组件通过key调用State中的public方法
+final countKey = GlobalKey<CounterState>();
+// TODO-未实验成功。stful组件之间的通信方式二：通过单值变更通知器ValueNotifier的监听实现
+final countNotifier = CountNotifier(0);
 
 class TutorialHome extends StatelessWidget {
   @override
@@ -32,12 +37,17 @@ class TutorialHome extends StatelessWidget {
       ),
       body: Center(
         child: Column(
-          children: <Widget>[Text('Hello World'), MyButton(), counter],
+          children: <Widget>[
+            Text('Hello World'),
+            MyButton(),
+            Counter(countKey: countKey, countNotifier: countNotifier,)
+          ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          counter.add();
+          countKey.currentState.increment();
+          countNotifier.value--;
         },
         child: Icon(Icons.add
             // 这个child难道默认就是个IconButton？
@@ -50,8 +60,6 @@ class TutorialHome extends StatelessWidget {
     );
   }
 }
-
-Counter counter = Counter();
 
 class MyScaffold extends StatelessWidget {
   @override
