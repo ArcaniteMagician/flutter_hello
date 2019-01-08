@@ -1,15 +1,28 @@
 import 'package:flutter/material.dart';
 import 'custom_widget.dart';
+import 'shopping.dart';
 
 void main() {
-  runApp(MaterialApp(title: "Hello Flutter", home: TutorialHome()
-//    Center(
+  runApp(MaterialApp(
+    title: "Hello Flutter",
+    // ListView
+    home: ShoppingList(
+      products: <Product>[
+        Product(name: 'Baseball'),
+        Product(name: 'Basketball'),
+        Product(name: 'Football'),
+      ],
+    ),
+    // 基本组件的使用
+//      home: TutorialHome(),
+    // Hello World
+//    home: Center(
 //      child: Text(
 //        'This is my truly Hello World!',
 //        textDirection: TextDirection.rtl,// 不知道这个不同参数的区别
 //      ),
 //    ),
-      ));
+  ));
 }
 
 // stful组件之间的通信方式一：通过使用GlobalKey构造组件，另一组件通过key调用State中的public方法
@@ -40,7 +53,10 @@ class TutorialHome extends StatelessWidget {
           children: <Widget>[
             Text('Hello World'),
             MyButton(),
-            Counter(countKey: countKey, countNotifier: countNotifier,)
+            Counter(
+              countKey: countKey,
+              countNotifier: countNotifier,
+            ),
           ],
         ),
       ),
