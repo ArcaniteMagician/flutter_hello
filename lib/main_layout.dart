@@ -2,39 +2,34 @@ import 'package:flutter/material.dart';
 
 void main() {
   // TODO-打开app运行的是哪个dart文件是由哪里决定的？
-  runApp(
-    MaterialApp(
-        // 所以这个title每次都是用来做什么的仍未知晓
-        title: "Flutter Layout Demo",
-        home: Scaffold(
-          appBar: AppBar(
-            title: Text('Haibara Ai'),
+  runApp(MaterialApp(
+      // 所以这个title每次都是用来做什么的仍未知晓
+      title: "Flutter Layout Demo",
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Haibara Ai'),
+        ),
+        body: Column(children: <Widget>[
+          Image.asset(
+            'images/haibara.jpg',
+            width: 533.0,
+            height: 200.0,
+            fit: BoxFit.cover,
           ),
-          body: ListView(
-            children: <Widget>[
-              // TODO-如何实现只对图片以下的内容进行滚动还要再试试
-              HomePage(),
-            ],
-          ),
-        )),
-  );
+          Expanded(
+              child: ListView(
+            children: <Widget>[HomePage()],
+          )),
+        ]),
+      )));
 }
 
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: <Widget>[
-        Image.asset(
-          'images/haibara.jpg',
-          width: 533.0,
-          height: 200.0,
-          fit: BoxFit.cover,
-        ),
-        _TitleSection(),
-        _ButtonBar(),
-        _textSection
-      ],
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: <Widget>[_TitleSection(), _ButtonBar(), _textSection],
     );
   }
 }
@@ -117,8 +112,12 @@ Column _getButtonColum(IconData iconData, String label) {
 Widget _textSection = Container(
   padding: const EdgeInsets.all(32.0),
   child: Text(
-    '灰原喜欢小熊（TV 212-213）、小狗（TV 233-234）、小猫（TV 427-428、486、722）、萤火虫（TV 289-290）等小动物，喜欢绯色（TV 176、178），爱吃花生黄油和蓝莓果酱夹心的三明治（OVA 11中设定，非原作情节）；喜欢的电影是《爱因斯坦的光荣与苦恼的日子》（为TV 138中虚构的电影）。'
-    '\n从TV 129、TV 205、TV 375、TV 423、M 11、OVA 9、OVA 12、M 15 特典等集数中，可以看出灰原爱看时装杂志。灰原也有使用女性时尚用品的爱好，TV 205中向佐藤警官提出的愿望是：“我要普达拉（PRADA）最新款的皮包”；TV 375中提出的帮柯南的条件：“芙莎绘最新款的钱包，这么大……（用手比划大小）就这样我就帮你。”',
+    '灰原喜欢小熊（TV 212-213）、小狗（TV 233-234）、小猫（TV 427-428、486、722）、'
+        '萤火虫（TV 289-290）等小动物，喜欢绯色（TV 176、178），爱吃花生黄油和蓝莓果酱夹心的三明治（OVA 11中设定，'
+        '非原作情节）；喜欢的电影是《爱因斯坦的光荣与苦恼的日子》（为TV 138中虚构的电影）。'
+        '\n从TV 129、TV 205、TV 375、TV 423、M 11、OVA 9、OVA 12、M 15 特典等集数中，可以看出灰原爱看时装杂志。'
+        '灰原也有使用女性时尚用品的爱好，TV 205中向佐藤警官提出的愿望是：“我要普达拉（PRADA）最新款的皮包”；'
+        'TV 375中提出的帮柯南的条件：“芙莎绘最新款的钱包，这么大……（用手比划大小）就这样我就帮你。”',
     // 好像是自动换行
     softWrap: true,
   ),
