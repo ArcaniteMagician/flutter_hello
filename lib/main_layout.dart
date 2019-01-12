@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 void main() {
+//  debugPaintSizeEnabled=true;// 开启组件边距
   // TODO-打开app运行的是哪个dart文件是由哪里决定的？
   runApp(MaterialApp(
       // 所以这个title每次都是用来做什么的仍未知晓
@@ -18,7 +20,19 @@ void main() {
           ),
           Expanded(
               child: ListView(
-            children: <Widget>[HomePage()],
+            children: <Widget>[
+              HomePage(),
+              ListTile(
+                  leading: const Icon(Icons.flight_land),
+                  title: const Text('Trix\'s airplane'),
+                  subtitle: 1 != 2
+                      ? const Text('The airplane is only in Act II.')
+                      : null,
+                  enabled: 1 == 2,
+                  onTap: () {
+                    /* react to the tile being tapped */
+                  })
+            ],
           )),
         ]),
       )));
@@ -76,15 +90,15 @@ class _ButtonBar extends StatelessWidget {
       // 让Row可以match_parent，不明白为什么titleSection可以写个Expanded就可以充满，这个不行
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
-        _getButtonColum(Icons.call, 'CALL'),
-        _getButtonColum(Icons.near_me, 'ROUTE'),
-        _getButtonColum(Icons.share, 'SHARE'),
+        _getButtonColunm(Icons.call, 'CALL'),
+        _getButtonColunm(Icons.near_me, 'ROUTE'),
+        _getButtonColunm(Icons.share, 'SHARE'),
       ],
     ));
   }
 }
 
-Column _getButtonColum(IconData iconData, String label) {
+Column _getButtonColunm(IconData iconData, String label) {
   Color color = Colors.blue[500];
   return Column(
     mainAxisAlignment: MainAxisAlignment.center,
