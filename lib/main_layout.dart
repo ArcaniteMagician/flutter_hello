@@ -90,15 +90,15 @@ class _ButtonBar extends StatelessWidget {
       // 让Row可以match_parent，不明白为什么titleSection可以写个Expanded就可以充满，这个不行
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
-        _getButtonColunm(Icons.call, 'CALL'),
-        _getButtonColunm(Icons.near_me, 'ROUTE'),
-        _getButtonColunm(Icons.share, 'SHARE'),
+        _getButtonColumn(Icons.call, 'CALL'),
+        _getButtonColumn(Icons.near_me, 'ROUTE'),
+        _getButtonColumn(Icons.share, 'SHARE'),
       ],
     ));
   }
 }
 
-Column _getButtonColunm(IconData iconData, String label) {
+Column _getButtonColumn(IconData iconData, String label) {
   Color color = Colors.blue[500];
   return Column(
     mainAxisAlignment: MainAxisAlignment.center,

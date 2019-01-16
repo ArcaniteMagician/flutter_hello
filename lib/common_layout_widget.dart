@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_hello/contact_demo.dart';
 
 void main() {
 //  debugPaintSizeEnabled = true; // 开启组件边距
   runApp(MaterialApp(
     title: 'Common Layout Widget',
-    home: ColorsDemo(),
+    home: ContactsDemo(),
   ));
 }
 
