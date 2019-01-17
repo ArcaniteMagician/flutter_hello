@@ -337,6 +337,11 @@ class ContactsDemoState extends State<ContactsDemo> {
                     ),
                   ],
                 ),
+                Text(
+                  'Text in SliverList',
+                  style: TextStyle(fontSize: 20.0),
+                  textAlign: TextAlign.center,
+                ),
               ]),
             ),
           ],

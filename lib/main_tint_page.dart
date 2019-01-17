@@ -21,30 +21,64 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
-      slivers: <Widget>[
-        SliverAppBar(
-          expandedHeight: _appBarHeight,
-          flexibleSpace: FlexibleSpaceBar(
-            title: const Text('Haibara Ai'),
-            background: Stack(
-              fit: StackFit.expand,
-              children: <Widget>[
-                Image.asset(
-                  'images/haibara.jpg',
-                  fit: BoxFit.cover,
-                )
-              ],
+    // 当没有把CustomScrollView包在脚手架中时，里面所有TextView都会带黄色双下划线，且默认字体颜色为红色
+    return Scaffold(
+      body: CustomScrollView(
+        slivers: <Widget>[
+          SliverAppBar(
+            expandedHeight: _appBarHeight,
+            flexibleSpace: FlexibleSpaceBar(
+              title: const Text('Haibara Ai'),
+              background: Stack(
+                fit: StackFit.expand,
+                children: <Widget>[
+                  Image.asset(
+                    'images/haibara.jpg',
+                    fit: BoxFit.cover,
+                  ),
+                  Align(
+//                    bottomCenter  (0.5, 1.0)    底部中心
+//                    bottomLeft    (0.0, 1.0)    左下角
+//                    bottomRight   (1.0, 1.0)    右下角
+//                    center        (0.5, 0.5)    水平垂直居中
+//                    centerLeft    (0.0, 0.5)    左边缘中心
+//                    centerRight   (1.0, 0.5)    右边缘中心
+//                    topCenter     (0.5, 0.0)    顶部中心
+//                    topLeft       (0.0, 0.0)    左上角
+//                    topRight      (1.0, 0.0)    右上角
+//                  alignment: FractionalOffset(0.5, 1.0),
+                    alignment: FractionalOffset.bottomCenter,
+                    child: Text('Text In Stack'),
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-        SliverList(
-          delegate: SliverChildListDelegate(<Widget>[
-            _ButtonBar(),
-            _textSection
-          ]),
-        ),
-      ],
+          SliverList(
+            delegate: SliverChildListDelegate(<Widget>[
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    'Text in SliverList',
+                    style: TextStyle(fontSize: 20.0),
+                    textAlign: TextAlign.center,
+                  ),
+                  _ButtonBar(),
+                  _textSection,
+                ],
+              ),
+              Text(
+                'Text in SliverList',
+                style: TextStyle(fontSize: 20.0),
+                textAlign: TextAlign.center,
+              ),
+              _ButtonBar(),
+              _textSection,
+            ]),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -53,6 +87,7 @@ class _ButtonBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+        margin: const EdgeInsets.symmetric(vertical: 10.0),
         child: Row(
           // 让Row可以match_parent，不明白为什么titleSection可以写个Expanded就可以充满，这个不行
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -102,7 +137,8 @@ Widget _textSection = Container(
     // 好像是自动换行
     softWrap: true,
     style: TextStyle(
-      fontSize: 22.0,
+      color: Colors.green[200],
+      fontSize: 18.0,
       fontWeight: FontWeight.w400,
     ),
   ),
