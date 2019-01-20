@@ -59,10 +59,22 @@ class _HomePageState extends State<HomePage> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  Text(
-                    'Text in SliverList',
-                    style: TextStyle(fontSize: 20.0),
-                    textAlign: TextAlign.center,
+                  Container(
+                    margin: const EdgeInsets.symmetric(vertical: 5.0),
+                    child: SizedBox(
+                      height: 60.0,
+                      // 获取了屏幕宽度
+                      width: MediaQuery.of(context).size.width - 20.0,
+                      child: Card(
+                        // 设置不被接受的值可以去除阴影效果
+                        elevation: -20.0,
+                        child: Text(
+                          'Text in SliverList',
+                          style: TextStyle(fontSize: 20.0),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
                   ),
                   _ButtonBar(),
                   _textSection,
@@ -88,14 +100,21 @@ class _ButtonBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         margin: const EdgeInsets.symmetric(vertical: 10.0),
-        child: Row(
-          // 让Row可以match_parent，不明白为什么titleSection可以写个Expanded就可以充满，这个不行
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            _getButtonColumn(Icons.call, 'CALL'),
-            _getButtonColumn(Icons.near_me, 'ROUTE'),
-            _getButtonColumn(Icons.share, 'SHARE'),
-          ],
+        child: SizedBox(
+          height: 100.0,
+          width: 300.0,
+          child: Card(
+            elevation: 5.0,
+            child: Row(
+              // 让Row可以match_parent，不明白为什么titleSection可以写个Expanded就可以充满，这个不行
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                _getButtonColumn(Icons.call, 'CALL'),
+                _getButtonColumn(Icons.near_me, 'ROUTE'),
+                _getButtonColumn(Icons.share, 'SHARE'),
+              ],
+            ),
+          ),
         ));
   }
 }
