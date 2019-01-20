@@ -59,32 +59,14 @@ class _HomePageState extends State<HomePage> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  Container(
-                    margin: const EdgeInsets.symmetric(vertical: 5.0),
-                    child: SizedBox(
-                      height: 60.0,
-                      // 获取了屏幕宽度
-                      width: MediaQuery.of(context).size.width - 20.0,
-                      child: Card(
-                        // 设置不被接受的值可以去除阴影效果
-                        elevation: -20.0,
-                        child: Text(
-                          'Text in SliverList',
-                          style: TextStyle(fontSize: 20.0),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ),
-                  ),
+                  // TODO- 初步判定为在Column内的宽度声明会生效
+                  _getText(context),
                   _ButtonBar(),
                   _textSection,
                 ],
               ),
-              Text(
-                'Text in SliverList',
-                style: TextStyle(fontSize: 20.0),
-                textAlign: TextAlign.center,
-              ),
+              // 直接在SliverList下的宽度声明未生效
+              _getText(context),
               _ButtonBar(),
               _textSection,
             ]),
@@ -94,6 +76,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+
 
 class _ButtonBar extends StatelessWidget {
   @override
@@ -162,3 +145,26 @@ Widget _textSection = Container(
     ),
   ),
 );
+
+Widget _getText(BuildContext context) {
+  return Container(
+    margin: const EdgeInsets.symmetric(vertical: 5.0),
+    child: SizedBox(
+      height: 60.0,
+      // 获取了屏幕宽度
+      width: MediaQuery
+          .of(context)
+          .size
+          .width - 20.0,
+      child: Card(
+        // 设置不被接受的值可以去除阴影效果
+        elevation: -20.0,
+        child: Text(
+          'Text in SliverList',
+          style: TextStyle(fontSize: 20.0),
+          textAlign: TextAlign.center,
+        ),
+      ),
+    ),
+  );
+}
