@@ -6,13 +6,7 @@ void main() {
   runApp(MaterialApp(
     title: "Hello Flutter",
     // ListView
-    home: ShoppingList(
-      products: <Product>[
-        Product(name: 'Baseball'),
-        Product(name: 'Basketball'),
-        Product(name: 'Football'),
-      ],
-    ),
+    home: ShoppingListHomePage(),
     // 基本组件的使用
 //      home: TutorialHome(),
     // Hello World
@@ -23,6 +17,19 @@ void main() {
 //      ),
 //    ),
   ));
+}
+
+class ShoppingListHomePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ShoppingList(
+      products: <Product>[
+        Product(name: 'Baseball'),
+        Product(name: 'Basketball'),
+        Product(name: 'Football'),
+      ],
+    );
+  }
 }
 
 // stful组件之间的通信方式一：通过使用GlobalKey构造组件，另一组件通过key调用State中的public方法

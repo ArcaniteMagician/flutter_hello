@@ -192,6 +192,17 @@ List<Container> _buildGridTileList(int count) {
 }
 
 // Container的练习
+class ContainerHomePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+          title:Text('Container')),
+      body: MyHomePage(),
+    );
+  }
+}
+
 class MyHomePage extends StatefulWidget {
   @override
   _MyHomePageState createState() => _MyHomePageState();

@@ -7,35 +7,42 @@ void main() {
   runApp(MaterialApp(
       // 所以这个title每次都是用来做什么的仍未知晓
       title: "Flutter Layout Demo",
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Haibara Ai'),
+      home: FirstHaibaraPage()));
+}
+
+class FirstHaibaraPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Haibara Ai'),
+      ),
+      body: Column(children: <Widget>[
+        Image.asset(
+          'images/haibara.jpg',
+          width: 533.0,
+          height: 200.0,
+          fit: BoxFit.cover,
         ),
-        body: Column(children: <Widget>[
-          Image.asset(
-            'images/haibara.jpg',
-            width: 533.0,
-            height: 200.0,
-            fit: BoxFit.cover,
-          ),
-          Expanded(
-              child: ListView(
-            children: <Widget>[
-              HomePage(),
-              ListTile(
-                  leading: const Icon(Icons.flight_land),
-                  title: const Text('Trix\'s airplane'),
-                  subtitle: 1 != 2
-                      ? const Text('The airplane is only in Act II.')
-                      : null,
-                  enabled: 1 == 2,
-                  onTap: () {
-                    /* react to the tile being tapped */
-                  })
-            ],
-          )),
-        ]),
-      )));
+        Expanded(
+            child: ListView(
+          children: <Widget>[
+            HomePage(),
+            ListTile(
+                leading: const Icon(Icons.flight_land),
+                title: const Text('Trix\'s airplane'),
+                subtitle: 1 != 2
+                    ? const Text('The airplane is only in Act II.')
+                    : null,
+                enabled: 1 == 2,
+                onTap: () {
+                  /* react to the tile being tapped */
+                })
+          ],
+        )),
+      ]),
+    );
+  }
 }
 
 class HomePage extends StatelessWidget {

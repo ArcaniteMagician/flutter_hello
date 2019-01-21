@@ -7,16 +7,16 @@ void main() {
   runApp(MaterialApp(
     // 所以这个title每次都是用来做什么的仍未知晓
     title: "Flutter Layout Demo",
-    home: HomePage(),
+    home: TintHomePage(),
   ));
 }
 
-class HomePage extends StatefulWidget {
+class TintHomePage extends StatefulWidget {
   @override
-  _HomePageState createState() => _HomePageState();
+  _TintHomePageState createState() => _TintHomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _TintHomePageState extends State<TintHomePage> {
   static const double _appBarHeight = 255.0;
 
   @override
