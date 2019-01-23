@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hello/geometry_caculator/isosceles_right_triangle.dart';
 
+void main() => runApp(MaterialApp(
+      home: CalculatorHomePage(),
+    ));
+
 class CalculatorHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -39,12 +43,15 @@ class _ListBody extends StatelessWidget {
 
 ListTile _getItem(BuildContext context, _ItemData itemData) {
   return ListTile(
-    leading: Icon(itemData.iconData,
-    color: Theme.of(context).primaryColor,),
+    leading: Icon(
+      itemData.iconData,
+      color: Theme.of(context).primaryColor,
+    ),
     title: Text(itemData.title),
     subtitle: Text(itemData.subtitle),
     onTap: () {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => IsoscelesRightTriangle()));
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => IsoscelesRightTriangle()));
     },
   );
 }
