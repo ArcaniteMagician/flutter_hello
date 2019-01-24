@@ -14,65 +14,123 @@ class _IsoscelesRightTriangleState extends State<IsoscelesRightTriangle> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('等腰直角三角形'),
+        title: Text('30°内角直角三角形'),
       ),
-      body: GridView.count(
-        crossAxisCount: 3,
-        children: <Widget>[
-          _TipText(' '),
-          _TipText('对应内角\n度数'),
-          _TipText('边长'),
-          _TipText('a'),
-          _TipText('30°'),
-          LengthTextField(
-            key: shortKey,
-            decorationText: '1.0',
-            editingValue: '1.0',
-            callback: (value) {
-              double shortValue = double.parse(value);
+      body: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
+        child: ListView(
+          children: <Widget>[
+            _TitleRow(),
+            _DataRow(
+              name: 'a',
+              angle: '30°',
+              valueText: LengthTextField(
+                key: shortKey,
+                decorationText: '',
+                editingValue: '1.0',
+                callback: (value) {
+                  double shortValue = double.parse(value);
 
-              shortKey.currentState.setNewValue('', shortValue.toString());
-              middleKey.currentState
-                  .setNewValue('a * √3', (1.732 * shortValue).toString());
-              longKey.currentState
-                  .setNewValue("a * 2", (2 * shortValue).toString());
-            },
-          ),
-          _TipText('b'),
-          _TipText('60°'),
-          LengthTextField(
-            key: middleKey,
-            decorationText: 'a * √3',
-            editingValue: '1.732',
-            callback: (value) {
-              double middleValue = double.parse(value);
+                  shortKey.currentState.setNewValue('', shortValue.toString());
+                  middleKey.currentState
+                      .setNewValue('a * √3', (1.732 * shortValue).toString());
+                  longKey.currentState
+                      .setNewValue("a * 2", (2 * shortValue).toString());
+                },
+              ),
+            ),
+            _DataRow(
+              name: 'b',
+              angle: '60°',
+              valueText: LengthTextField(
+                key: middleKey,
+                decorationText: 'a * √3',
+                editingValue: '1.732',
+                callback: (value) {
+                  double middleValue = double.parse(value);
 
-              shortKey.currentState
-                  .setNewValue('b / √3', (middleValue / 1.732).toString());
-              middleKey.currentState.setNewValue('', middleValue.toString());
-              longKey.currentState.setNewValue(
-                  'b / √3 * 2', (middleValue / 1.732 * 2).toString());
-            },
-          ),
-          _TipText('c'),
-          _TipText('90°'),
-          LengthTextField(
-            key: longKey,
-            decorationText: 'a * 2',
-            editingValue: '2.0',
-            callback: (value) {
-              double longValue = double.parse(value);
+                  shortKey.currentState
+                      .setNewValue('b / √3', (middleValue / 1.732).toString());
+                  middleKey.currentState
+                      .setNewValue('', middleValue.toString());
+                  longKey.currentState.setNewValue(
+                      'b / √3 * 2', (middleValue / 1.732 * 2).toString());
+                },
+              ),
+            ),
+            _DataRow(
+              name: 'c',
+              angle: '90°',
+              valueText: LengthTextField(
+                key: longKey,
+                decorationText: 'a * 2',
+                editingValue: '2.0',
+                callback: (value) {
+                  double longValue = double.parse(value);
 
-              shortKey.currentState
-                  .setNewValue('c / 2', (longValue / 2).toString());
-              middleKey.currentState.setNewValue(
-                  'c * √3 / 2', (longValue * 1.732 / 2).toString());
-              longKey.currentState.setNewValue('', longValue.toString());
-            },
-          ),
-        ],
-        addRepaintBoundaries: true,
+                  shortKey.currentState
+                      .setNewValue('c / 2', (longValue / 2).toString());
+                  middleKey.currentState.setNewValue(
+                      'c * √3 / 2', (longValue * 1.732 / 2).toString());
+                  longKey.currentState.setNewValue('', longValue.toString());
+                },
+              ),
+            ),
+          ],
+        ),
       ),
+    );
+  }
+}
+
+class _TitleRow extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.max,
+      children: <Widget>[
+        Expanded(
+          flex: 1,
+          child: _TipText('代号'),
+        ),
+        Expanded(
+          flex: 2,
+          child: _TipText('对应内角\n度数'),
+        ),
+        Expanded(
+          flex: 3,
+          child: _TipText('边长'),
+        ),
+      ],
+    );
+  }
+}
+
+class _DataRow extends StatelessWidget {
+  final String name;
+  final String angle;
+  final Widget valueText;
+
+  const _DataRow({this.name, this.angle, this.valueText});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.max,
+      children: <Widget>[
+        Expanded(
+          flex: 1,
+          child: _TipText(name),
+        ),
+        Expanded(
+          flex: 2,
+          child: _TipText(angle),
+        ),
+        Expanded(
+          flex: 3,
+          child: valueText,
+        )
+      ],
     );
   }
 }
