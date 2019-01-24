@@ -19,37 +19,55 @@ class _IsoscelesRightTriangleState extends State<IsoscelesRightTriangle> {
       body: GridView.count(
         crossAxisCount: 3,
         children: <Widget>[
-          Text(' '),
-          Text('内角度数'),
-          Text('长度'),
-          Text('a'),
-          Text('30°'),
+          _TipText(' '),
+          _TipText('对应内角\n度数'),
+          _TipText('边长'),
+          _TipText('a'),
+          _TipText('30°'),
           LengthTextField(
             key: shortKey,
-            lengthValue: '1.0',
+            decorationText: '1.0',
+            editingValue: '1.0',
             callback: (value) {
               double shortValue = double.parse(value);
-              longKey.currentState.setNewValue((2 * shortValue).toString());
+
+              shortKey.currentState.setNewValue('', shortValue.toString());
               middleKey.currentState
-                  .setNewValue((1.714 * shortValue).toString());
+                  .setNewValue('a * √3', (1.732 * shortValue).toString());
+              longKey.currentState
+                  .setNewValue("a * 2", (2 * shortValue).toString());
             },
           ),
-          Text('b'),
-          Text('60°'),
+          _TipText('b'),
+          _TipText('60°'),
           LengthTextField(
             key: middleKey,
-            lengthValue: '1.0',
+            decorationText: 'a * √3',
+            editingValue: '1.732',
             callback: (value) {
               double middleValue = double.parse(value);
+
+              shortKey.currentState
+                  .setNewValue('b / √3', (middleValue / 1.732).toString());
+              middleKey.currentState.setNewValue('', middleValue.toString());
+              longKey.currentState.setNewValue(
+                  'b / √3 * 2', (middleValue / 1.732 * 2).toString());
             },
           ),
-          Text('c'),
-          Text('90°'),
+          _TipText('c'),
+          _TipText('90°'),
           LengthTextField(
             key: longKey,
-            lengthValue: '1.0',
+            decorationText: 'a * 2',
+            editingValue: '2.0',
             callback: (value) {
               double longValue = double.parse(value);
+
+              shortKey.currentState
+                  .setNewValue('c / 2', (longValue / 2).toString());
+              middleKey.currentState.setNewValue(
+                  'c * √3 / 2', (longValue * 1.732 / 2).toString());
+              longKey.currentState.setNewValue('', longValue.toString());
             },
           ),
         ],
@@ -60,27 +78,33 @@ class _IsoscelesRightTriangleState extends State<IsoscelesRightTriangle> {
 }
 
 class LengthTextField extends StatefulWidget {
-  final String lengthValue;
+  final String editingValue;
+  final String decorationText;
   final CalculateCallback callback;
 
-  LengthTextField({Key key, this.lengthValue, this.callback}) : super(key: key);
+  LengthTextField(
+      {Key key, this.decorationText, this.editingValue, this.callback})
+      : super(key: key);
 
   @override
   _LengthTextFieldState createState() => _LengthTextFieldState();
 }
 
 class _LengthTextFieldState extends State<LengthTextField> {
-  String _value;
+  String _decorationText;
+  String _editingValue;
 
   @override
   void initState() {
     super.initState();
-    _value = widget.lengthValue;
+    _editingValue = widget.editingValue;
+    _decorationText = widget.decorationText;
   }
 
-  void setNewValue(String newValue) {
+  void setNewValue(String decorationText, String newValue) {
     setState(() {
-      this._value = newValue;
+      this._decorationText = decorationText;
+      this._editingValue = newValue;
     });
   }
 
@@ -89,10 +113,28 @@ class _LengthTextFieldState extends State<LengthTextField> {
     return Center(
       child: TextField(
         keyboardType: TextInputType.number,
-        onChanged: (value) {
+        onSubmitted: (value) {
           widget.callback(value);
         },
-        decoration: InputDecoration(labelText: _value),
+        decoration: InputDecoration(labelText: _decorationText),
+        controller: TextEditingController.fromValue(
+            TextEditingValue(text: _editingValue)),
+      ),
+    );
+  }
+}
+
+class _TipText extends StatelessWidget {
+  final String text;
+
+  const _TipText(this.text);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text(
+        text,
+        textAlign: TextAlign.center,
       ),
     );
   }
