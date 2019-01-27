@@ -28,10 +28,11 @@ class _IsoscelesRightTriangleState extends State<IsoscelesRightTriangle> {
                 key: shortKey,
                 decorationText: '',
                 editingValue: '1.0',
-                callback: (value) {
-                  double shortValue = double.parse(value);
+                callback: (shortValue) {
+                  middleKey.currentState.setFocused(false);
+                  longKey.currentState.setFocused(false);
 
-                  shortKey.currentState.setNewValue('', shortValue.toString());
+                  shortKey.currentState.setNewDecorationText('');
                   middleKey.currentState
                       .setNewValue('a * √3', (1.732 * shortValue).toString());
                   longKey.currentState
@@ -46,13 +47,14 @@ class _IsoscelesRightTriangleState extends State<IsoscelesRightTriangle> {
                 key: middleKey,
                 decorationText: 'a * √3',
                 editingValue: '1.732',
-                callback: (value) {
-                  double middleValue = double.parse(value);
+                callback: (middleValue) {
+                  shortKey.currentState.setFocused(false);
+                  longKey.currentState.setFocused(false);
 
                   shortKey.currentState
                       .setNewValue('b / √3', (middleValue / 1.732).toString());
                   middleKey.currentState
-                      .setNewValue('', middleValue.toString());
+                      .setNewValue('', null);
                   longKey.currentState.setNewValue(
                       'b / √3 * 2', (middleValue / 1.732 * 2).toString());
                 },
@@ -65,14 +67,15 @@ class _IsoscelesRightTriangleState extends State<IsoscelesRightTriangle> {
                 key: longKey,
                 decorationText: 'a * 2',
                 editingValue: '2.0',
-                callback: (value) {
-                  double longValue = double.parse(value);
+                callback: (longValue) {
+                  shortKey.currentState.setFocused(false);
+                  middleKey.currentState.setFocused(false);
 
                   shortKey.currentState
                       .setNewValue('c / 2', (longValue / 2).toString());
                   middleKey.currentState.setNewValue(
                       'c * √3 / 2', (longValue * 1.732 / 2).toString());
-                  longKey.currentState.setNewValue('', longValue.toString());
+                  longKey.currentState.setNewValue('', null);
                 },
               ),
             ),
@@ -151,12 +154,19 @@ class LengthTextField extends StatefulWidget {
 class _LengthTextFieldState extends State<LengthTextField> {
   String _decorationText;
   String _editingValue;
+  bool _isFocused;
 
   @override
   void initState() {
     super.initState();
     _editingValue = widget.editingValue;
     _decorationText = widget.decorationText;
+  }
+
+  void setNewDecorationText(String decorationText) {
+    setState(() {
+      this._decorationText = decorationText;
+    });
   }
 
   void setNewValue(String decorationText, String newValue) {
@@ -166,17 +176,36 @@ class _LengthTextFieldState extends State<LengthTextField> {
     });
   }
 
+  void setFocused(bool isFocused) {
+    this._isFocused = isFocused;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Center(
+      // TextField样式参考：https://juejin.im/post/5b6bdb406fb9a04f89785cb5
       child: TextField(
         keyboardType: TextInputType.number,
-        onSubmitted: (value) {
-          widget.callback(value);
+        onChanged: (value) {
+          if (_isFocused) {
+            double num = double.tryParse(value) ?? -1;
+            if (num > 0) {
+              widget.callback(num);
+            }
+          }
         },
-        decoration: InputDecoration(labelText: _decorationText),
-        controller: TextEditingController.fromValue(
-            TextEditingValue(text: _editingValue)),
+        onTap: () {
+          _isFocused = true;
+        },
+        decoration: InputDecoration(
+          labelText: _decorationText,
+        ),
+        controller: TextEditingController.fromValue(TextEditingValue(
+            text: _editingValue,
+            // 保持光标在文末
+            selection: TextSelection.fromPosition(TextPosition(
+                affinity: TextAffinity.downstream,
+                offset: _editingValue.length)))),
       ),
     );
   }
@@ -198,4 +227,4 @@ class _TipText extends StatelessWidget {
   }
 }
 
-typedef CalculateCallback<String> = void Function(String value);
+typedef CalculateCallback<String> = void Function(double value);
