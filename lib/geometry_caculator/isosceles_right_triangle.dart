@@ -28,11 +28,8 @@ class _IsoscelesRightTriangleState extends State<IsoscelesRightTriangle> {
                 key: shortKey,
                 decorationText: '',
                 editingValue: '1.0',
-                callback: (shortValue) {
-                  middleKey.currentState.setFocused(false);
-                  longKey.currentState.setFocused(false);
-
-                  shortKey.currentState.setNewDecorationText('');
+                callback: (text, shortValue) {
+                  shortKey.currentState.setNewValue('', text);
                   middleKey.currentState
                       .setNewValue('a * √3', (1.732 * shortValue).toString());
                   longKey.currentState
@@ -47,14 +44,10 @@ class _IsoscelesRightTriangleState extends State<IsoscelesRightTriangle> {
                 key: middleKey,
                 decorationText: 'a * √3',
                 editingValue: '1.732',
-                callback: (middleValue) {
-                  shortKey.currentState.setFocused(false);
-                  longKey.currentState.setFocused(false);
-
+                callback: (text, middleValue) {
                   shortKey.currentState
                       .setNewValue('b / √3', (middleValue / 1.732).toString());
-                  middleKey.currentState
-                      .setNewValue('', null);
+                  middleKey.currentState.setNewValue('', text);
                   longKey.currentState.setNewValue(
                       'b / √3 * 2', (middleValue / 1.732 * 2).toString());
                 },
@@ -67,15 +60,12 @@ class _IsoscelesRightTriangleState extends State<IsoscelesRightTriangle> {
                 key: longKey,
                 decorationText: 'a * 2',
                 editingValue: '2.0',
-                callback: (longValue) {
-                  shortKey.currentState.setFocused(false);
-                  middleKey.currentState.setFocused(false);
-
+                callback: (text, longValue) {
                   shortKey.currentState
                       .setNewValue('c / 2', (longValue / 2).toString());
                   middleKey.currentState.setNewValue(
                       'c * √3 / 2', (longValue * 1.732 / 2).toString());
-                  longKey.currentState.setNewValue('', null);
+                  longKey.currentState.setNewValue('', text);
                 },
               ),
             ),
@@ -154,7 +144,6 @@ class LengthTextField extends StatefulWidget {
 class _LengthTextFieldState extends State<LengthTextField> {
   String _decorationText;
   String _editingValue;
-  bool _isFocused;
 
   @override
   void initState() {
@@ -163,21 +152,19 @@ class _LengthTextFieldState extends State<LengthTextField> {
     _decorationText = widget.decorationText;
   }
 
-  void setNewDecorationText(String decorationText) {
-    setState(() {
-      this._decorationText = decorationText;
-    });
-  }
-
   void setNewValue(String decorationText, String newValue) {
     setState(() {
+      // TODO- 过长内容取到小数点后四位为止
+//      if (newValue.length > 10) {
+//        int endIndex = newValue.indexOf(".", newValue.length) + 4;
+//        if (endIndex > newValue.length) {
+//          endIndex = newValue.length;
+//        }
+//        newValue = newValue.substring(0, endIndex);
+//      }
       this._decorationText = decorationText;
       this._editingValue = newValue;
     });
-  }
-
-  void setFocused(bool isFocused) {
-    this._isFocused = isFocused;
   }
 
   @override
@@ -187,15 +174,10 @@ class _LengthTextFieldState extends State<LengthTextField> {
       child: TextField(
         keyboardType: TextInputType.number,
         onChanged: (value) {
-          if (_isFocused) {
-            double num = double.tryParse(value) ?? -1;
-            if (num > 0) {
-              widget.callback(num);
-            }
+          double num = double.tryParse(value) ?? -1;
+          if (num > 0) {
+            widget.callback(value, num);
           }
-        },
-        onTap: () {
-          _isFocused = true;
         },
         decoration: InputDecoration(
           labelText: _decorationText,
@@ -227,4 +209,4 @@ class _TipText extends StatelessWidget {
   }
 }
 
-typedef CalculateCallback<String> = void Function(double value);
+typedef CalculateCallback<String> = void Function(String text, double value);
