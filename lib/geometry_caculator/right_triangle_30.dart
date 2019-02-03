@@ -5,12 +5,12 @@ final shortKey = GlobalKey<LengthTextFieldState>();
 final middleKey = GlobalKey<LengthTextFieldState>();
 final longKey = GlobalKey<LengthTextFieldState>();
 
-class IsoscelesRightTriangle extends StatefulWidget {
+class RightTriangle30 extends StatefulWidget {
   @override
-  _IsoscelesRightTriangleState createState() => _IsoscelesRightTriangleState();
+  _RightTriangle30State createState() => _RightTriangle30State();
 }
 
-class _IsoscelesRightTriangleState extends State<IsoscelesRightTriangle> {
+class _RightTriangle30State extends State<RightTriangle30> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
