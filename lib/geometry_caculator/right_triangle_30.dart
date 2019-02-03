@@ -18,9 +18,13 @@ class _RightTriangle30State extends State<RightTriangle30> {
         title: Text('30°内角直角三角形'),
       ),
       body: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
+//        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
         child: ListView(
           children: <Widget>[
+            Image.asset(
+              'images/right_triangle_30.jpg',
+              fit: BoxFit.cover,
+            ),
             TitleRow(
               title: '代号',
               subtitle: '对应内角\n度数',

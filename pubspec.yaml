@@ -45,6 +45,10 @@ flutter:
     - images/haibara0.jpeg
     - images/haibara1.jpeg
     - images/haibara2.jpeg
+    - images/circle_and_square.jpg
+    - images/regular_triangle.jpg
+    - images/right_triangle_30.jpg
+    - images/right_triangle_45.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.

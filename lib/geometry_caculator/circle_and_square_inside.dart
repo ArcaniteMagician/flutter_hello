@@ -18,9 +18,13 @@ class _CircleAndSquareState extends State<CircleAndSquare> {
         title: Text('圆与内嵌正方形'),
       ),
       body: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
+//        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
         child: ListView(
           children: <Widget>[
+            Image.asset(
+              'images/circle_and_square.jpg',
+              fit: BoxFit.cover,
+            ),
             TitleRow(
               title: '代号',
               subtitle: '描述',

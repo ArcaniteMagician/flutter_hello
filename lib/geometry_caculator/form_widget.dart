@@ -10,22 +10,25 @@ class TitleRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.max,
-      children: <Widget>[
-        Expanded(
-          flex: 1,
-          child: _TipText(title),
-        ),
-        Expanded(
-          flex: 2,
-          child: _TipText(subtitle),
-        ),
-        Expanded(
-          flex: 3,
-          child: _TipText(data),
-        ),
-      ],
+    return Container(
+      margin: const EdgeInsets.only(top: 10.0),
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        children: <Widget>[
+          Expanded(
+            flex: 1,
+            child: _TipText(title),
+          ),
+          Expanded(
+            flex: 2,
+            child: _TipText(subtitle),
+          ),
+          Expanded(
+            flex: 3,
+            child: _TipText(data),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -39,22 +42,25 @@ class MyDataRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.max,
-      children: <Widget>[
-        Expanded(
-          flex: 1,
-          child: _TipText(name),
-        ),
-        Expanded(
-          flex: 2,
-          child: _TipText(angle),
-        ),
-        Expanded(
-          flex: 3,
-          child: valueText,
-        )
-      ],
+    return Container(
+      margin: const EdgeInsets.only(right: 10.0),
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        children: <Widget>[
+          Expanded(
+            flex: 1,
+            child: _TipText(name),
+          ),
+          Expanded(
+            flex: 2,
+            child: _TipText(angle),
+          ),
+          Expanded(
+            flex: 3,
+            child: valueText,
+          )
+        ],
+      ),
     );
   }
 }
